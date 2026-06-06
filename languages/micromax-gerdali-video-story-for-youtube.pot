@@ -1,0 +1,143 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Micromax Gerdali video story for youtube\n"
+"POT-Creation-Date: 2026-06-03 11:43+0330\n"
+"PO-Revision-Date: 2026-05-19 19:41+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: micromax-gerdali-video-story-for-youtube.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: micromax-gerdali-video-story-for-youtube.php:132
+msgid "Channel ID is missing."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:138
+msgid "No videos found in the feed."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:195
+msgid "Please provide a valid YouTube Channel ID in the shortcode attributes."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:228
+msgid "Close video"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:230
+msgid "Previous video"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:236
+msgid "Next video"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:277
+#: micromax-gerdali-video-story-for-youtube.php:324
+msgid "YouTube Video Story Shortcode Generator"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:278
+msgid "YouTube Video Story"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:325
+msgid ""
+"Generate customized shortcodes to display your YouTube channel feeds in a "
+"gorgeous Instagram-like story layout."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:331
+msgid "Generator Settings"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:334
+msgid "YouTube Channel ID"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:336
+msgid "Enter the unique ID of the YouTube channel you want to display."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:340
+msgid "Video Count"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:342
+msgid "Specify how many recent videos to load. Default is 5."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:349
+msgid "Your Shortcode"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:352
+msgid "Copy Code Below"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:356
+msgid "Copy shortcode to clipboard"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:360
+msgid "Copy Shortcode"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:361
+msgid "Copied!"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:366
+msgid "How to Find YouTube Channel ID"
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:370
+msgid "Navigate to the YouTube Channel in your web browser."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:374
+msgid ""
+"Look at the address bar. The channel ID is the string starting with \"UC\" "
+"in the URL (e.g., youtube.com/channel/UCx7QlhVvF5...)."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:378
+msgid ""
+"Alternatively, go to Advanced Settings in your YouTube Studio account "
+"settings to find it under account details."
+msgstr ""
+
+#: micromax-gerdali-video-story-for-youtube.php:400
+msgid "Shortcode Generator"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Micromax Gerdali video story for youtube"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/micromax-gerdali-video-story-for-youtube"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Displays a YouTube channel's latest videos in an Instagram-style story "
+"circle layout with skeleton loading. Videos open in an overlay."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "micromax"
+msgstr ""

@@ -1,0 +1,249 @@
+/* Container for the stories */
+.micromax-gerdali-stories-container {
+	display: flex;
+	gap: 15px;
+	overflow-x: auto;
+	padding: 10px 5px 35px 5px; /* Added bottom padding to accommodate wrapping titles on hover */
+	scrollbar-width: none; /* Firefox */
+	-webkit-overflow-scrolling: touch; /* Smooth mobile scroll */
+}
+
+.micromax-gerdali-stories-container::-webkit-scrollbar {
+	display: none; /* Chrome, Safari */
+}
+
+/* Individual Story Item */
+.micromax-gerdali-story-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+	max-width: 110px;
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+}
+
+.micromax-gerdali-story-item:not(.micromax-gerdali-skeleton):hover {
+	transform: scale(1.05);
+}
+
+/* Instagram-style Gradient Circle */
+.micromax-gerdali-story-circle {
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	padding: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.micromax-gerdali-story-circle img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 3px solid #ffffff;
+	object-fit: cover;
+	display: block;
+}
+
+.micromax-gerdali-story-title {
+	font-size: 12px;
+	text-align: center;
+	line-height: 1.3;
+	color: #333333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+	display: block;
+	max-height: 1.3em;
+	transition: max-height 0.3s ease;
+}
+
+.micromax-gerdali-story-item:not(.micromax-gerdali-skeleton):hover .micromax-gerdali-story-title {
+	white-space: normal;
+	max-height: 100px;
+	overflow: visible;
+}
+
+/* Skeleton Loading Animation */
+@keyframes micromax-gerdali-pulse {
+	0% { background-color: #e0e0e0; }
+	50% { background-color: #f5f5f5; }
+	100% { background-color: #e0e0e0; }
+}
+
+.micromax-gerdali-skeleton {
+	cursor: default;
+}
+
+.micromax-gerdali-skeleton .micromax-gerdali-story-circle {
+	background: transparent;
+	padding: 0;
+}
+
+.micromax-gerdali-skeleton .micromax-gerdali-story-circle::after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	animation: micromax-gerdali-pulse 1.5s infinite ease-in-out;
+}
+
+.micromax-gerdali-story-title-skeleton {
+	width: 75px;
+	height: 12px;
+	border-radius: 4px;
+	margin-top: 2px;
+	animation: micromax-gerdali-pulse 1.5s infinite ease-in-out;
+}
+
+/* Modal Overlay Styles */
+.micromax-gerdali-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999999;
+	align-items: center;
+	justify-content: center;
+}
+
+.micromax-gerdali-modal.is-open {
+	display: flex;
+}
+
+.micromax-gerdali-modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.85);
+	cursor: pointer;
+}
+
+.micromax-gerdali-modal-content {
+	position: relative;
+	width: 90%;
+	max-width: 900px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.micromax-gerdali-iframe-container {
+	position: relative;
+	width: 100%;
+	padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+	height: 0;
+	overflow: hidden;
+	background-color: #000;
+	border-radius: 8px;
+}
+
+.micromax-gerdali-iframe-container #micromax-gerdali-video-player {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.micromax-gerdali-modal-close {
+	position: absolute;
+	top: -40px;
+	right: 0;
+	background: transparent;
+	border: none;
+	color: #ffffff;
+	font-size: 30px;
+	cursor: pointer;
+	line-height: 1;
+	padding: 0;
+	z-index: 20;
+}
+
+.micromax-gerdali-modal-close:hover {
+	color: #cccccc;
+}
+
+/* Next / Prev Navigation Styling */
+.micromax-gerdali-modal-nav {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.6);
+	border: none;
+	color: #ffffff;
+	font-size: 24px;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 10;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.micromax-gerdali-modal-nav:hover {
+	background: rgba(0, 0, 0, 0.9);
+	transform: scale(1.1);
+}
+
+.micromax-gerdali-modal-prev {
+	left: -70px;
+}
+
+.micromax-gerdali-modal-next {
+	right: -70px;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 1060px) {
+	.micromax-gerdali-modal-content {
+		width: 85%;
+	}
+	.micromax-gerdali-modal-prev { left: -25px; width: 45px; height: 45px; font-size: 20px;}
+	.micromax-gerdali-modal-next { right: -25px; width: 45px; height: 45px; font-size: 20px;}
+}
+
+@media (max-width: 768px) {
+	/* Optimize modal structure on mobile completely */
+	.micromax-gerdali-modal-content {
+		width: 100%;
+		height: 100%;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 10px;
+		box-sizing: border-box;
+	}
+	.micromax-gerdali-modal-close {
+		top: 15px;
+		right: 15px;
+		font-size: 40px;
+	}
+	/* Prevent buttons overlapping the video. Bring them inside the frame safely or bottom. */
+	.micromax-gerdali-modal-prev,
+	.micromax-gerdali-modal-next {
+		position: absolute;
+		top: auto;
+		bottom: 15%; /* Push below video ideally */
+		width: 50px;
+		height: 50px;
+		background: rgba(255, 255, 255, 0.2);
+	}
+	.micromax-gerdali-modal-prev { left: 20%; }
+	.micromax-gerdali-modal-next { right: 20%; }
+}
+
+@media (max-width: 480px) {
+	.micromax-gerdali-modal-prev { left: 10%; }
+	.micromax-gerdali-modal-next { right: 10%; }
+}
