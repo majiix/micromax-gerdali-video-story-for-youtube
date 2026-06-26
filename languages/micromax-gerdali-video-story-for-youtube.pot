@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Micromax Gerdali video story for youtube\n"
-"POT-Creation-Date: 2026-06-03 11:43+0330\n"
+"POT-Creation-Date: 2026-06-26 21:50+0330\n"
 "PO-Revision-Date: 2026-05-19 19:41+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,106 +21,106 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: micromax-gerdali-video-story-for-youtube.php:132
+#: micromax-gerdali-video-story-for-youtube.php:140
 msgid "Channel ID is missing."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:138
+#: micromax-gerdali-video-story-for-youtube.php:146
 msgid "No videos found in the feed."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:195
+#: micromax-gerdali-video-story-for-youtube.php:205
 msgid "Please provide a valid YouTube Channel ID in the shortcode attributes."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:228
+#: micromax-gerdali-video-story-for-youtube.php:238
 msgid "Close video"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:230
+#: micromax-gerdali-video-story-for-youtube.php:240
 msgid "Previous video"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:236
+#: micromax-gerdali-video-story-for-youtube.php:246
 msgid "Next video"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:277
-#: micromax-gerdali-video-story-for-youtube.php:324
+#: micromax-gerdali-video-story-for-youtube.php:287
+#: micromax-gerdali-video-story-for-youtube.php:334
 msgid "YouTube Video Story Shortcode Generator"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:278
+#: micromax-gerdali-video-story-for-youtube.php:288
 msgid "YouTube Video Story"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:325
+#: micromax-gerdali-video-story-for-youtube.php:335
 msgid ""
 "Generate customized shortcodes to display your YouTube channel feeds in a "
 "gorgeous Instagram-like story layout."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:331
+#: micromax-gerdali-video-story-for-youtube.php:341
 msgid "Generator Settings"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:334
+#: micromax-gerdali-video-story-for-youtube.php:344
 msgid "YouTube Channel ID"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:336
+#: micromax-gerdali-video-story-for-youtube.php:346
 msgid "Enter the unique ID of the YouTube channel you want to display."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:340
+#: micromax-gerdali-video-story-for-youtube.php:350
 msgid "Video Count"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:342
+#: micromax-gerdali-video-story-for-youtube.php:352
 msgid "Specify how many recent videos to load. Default is 5."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:349
+#: micromax-gerdali-video-story-for-youtube.php:359
 msgid "Your Shortcode"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:352
+#: micromax-gerdali-video-story-for-youtube.php:362
 msgid "Copy Code Below"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:356
+#: micromax-gerdali-video-story-for-youtube.php:366
 msgid "Copy shortcode to clipboard"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:360
+#: micromax-gerdali-video-story-for-youtube.php:370
 msgid "Copy Shortcode"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:361
+#: micromax-gerdali-video-story-for-youtube.php:371
 msgid "Copied!"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:366
+#: micromax-gerdali-video-story-for-youtube.php:376
 msgid "How to Find YouTube Channel ID"
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:370
+#: micromax-gerdali-video-story-for-youtube.php:380
 msgid "Navigate to the YouTube Channel in your web browser."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:374
+#: micromax-gerdali-video-story-for-youtube.php:384
 msgid ""
 "Look at the address bar. The channel ID is the string starting with \"UC\" "
 "in the URL (e.g., youtube.com/channel/UCx7QlhVvF5...)."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:378
+#: micromax-gerdali-video-story-for-youtube.php:388
 msgid ""
 "Alternatively, go to Advanced Settings in your YouTube Studio account "
 "settings to find it under account details."
 msgstr ""
 
-#: micromax-gerdali-video-story-for-youtube.php:400
+#: micromax-gerdali-video-story-for-youtube.php:410
 msgid "Shortcode Generator"
 msgstr ""
 
