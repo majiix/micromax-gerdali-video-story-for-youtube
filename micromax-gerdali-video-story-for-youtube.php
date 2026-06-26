@@ -3,7 +3,7 @@
  * Plugin Name: Micromax Gerdali video story for youtube
  * Plugin URI: https://wordpress.org/plugins/micromax-gerdali-video-story-for-youtube
  * Description: Displays a YouTube channel's latest videos in an Instagram-style story circle layout with skeleton loading. Videos open in an overlay.
- * Version: 1.6.0
+ * Version: 1.6.1
  * Author: micromax
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,8 @@ $micromax_gerdali_load_modal = false;
  * Enqueues frontend scripts and styles.
  */
 function micromax_gerdali_enqueue_assets() {
-	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.6.0' );
-	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.6.0', true );
+	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.6.1' );
+	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.6.1', true );
 
 	wp_localize_script(
 		'micromax-gerdali-script',
@@ -75,7 +75,14 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
 
 	// Suppress XML parsing warnings if feed is temporarily malformed.
 	libxml_use_internal_errors( true );
+	$disable_el = false;
+	if ( PHP_VERSION_ID < 80000 && function_exists( 'libxml_disable_entity_loader' ) ) {
+		$disable_el = libxml_disable_entity_loader( true );
+	}
 	$xml = simplexml_load_string( $body );
+	if ( PHP_VERSION_ID < 80000 && function_exists( 'libxml_disable_entity_loader' ) ) {
+		libxml_disable_entity_loader( $disable_el );
+	}
 	libxml_clear_errors();
 
 	if ( ! $xml || empty( $xml->entry ) ) {
@@ -125,6 +132,7 @@ function micromax_gerdali_ajax_fetch_videos() {
 	check_ajax_referer( 'micromax_gerdali_fetch_nonce', '_ajax_nonce' );
 
 	$count      = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
+	$count      = min( 50, max( 1, $count ) );
 	$channel_id = isset( $_POST['channel_id'] ) ? sanitize_text_field( wp_unslash( $_POST['channel_id'] ) ) : '';
 	$channel_id = trim( $channel_id );
 
@@ -186,6 +194,8 @@ function micromax_gerdali_render_shortcode( $atts ) {
 		$atts,
 		'micromax_gerdali_story_videos'
 	);
+
+	$atts['count'] = min( 50, max( 1, absint( $atts['count'] ) ) );
 
 	if ( ! empty( $atts['id'] ) ) {
 		$atts['id'] = trim( $atts['id'] );
@@ -297,14 +307,14 @@ function micromax_gerdali_admin_enqueue_assets( $hook_suffix ) {
 		'micromax-gerdali-admin-style',
 		plugin_dir_url( __FILE__ ) . 'assets/css/admin.css',
 		array(),
-		'1.6.0'
+		'1.6.1'
 	);
 
 	wp_enqueue_script(
 		'micromax-gerdali-admin-script',
 		plugin_dir_url( __FILE__ ) . 'assets/js/admin.js',
 		array( 'jquery' ),
-		'1.6.0',
+		'1.6.1',
 		true
 	);
 }

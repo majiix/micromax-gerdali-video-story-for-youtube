@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let ytApiReady = false;
 	let currentVideoList = [];
 	let currentIndex = -1;
+	let lastActiveElement = null;
 
 	// Initialize Player function
 	function initializePlayer() {
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 * @param {Event} e The click event.
 	 */
 	function openModal(e) {
+		lastActiveElement = document.activeElement;
 		// Find the container holding this item to determine the playlist sequence
 		const container = e.currentTarget.closest('.micromax-gerdali-stories-container');
 		const items = Array.from(container.querySelectorAll('.micromax-gerdali-story-item:not(.micromax-gerdali-skeleton)'));
@@ -147,6 +149,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 			loadVideo(videoId);
 			updateNavButtons();
+
+			// Focus the close button for accessibility
+			setTimeout(function() {
+				if (closeBtn) {
+					closeBtn.focus();
+				}
+			}, 100);
 		}
 	}
 
@@ -167,6 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (isPopState !== true && history.state && history.state.micromaxGerdaliModalOpen) {
 			history.back();
 		}
+
+		// Restore focus to the element that triggered the modal
+		if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+			lastActiveElement.focus();
+		}
 	}
 
 	/**
@@ -178,9 +192,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		storyItems.forEach(function(item) {
 			item.addEventListener('click', openModal);
 
-			// Allow opening via keyboard (Enter key)
+			// Allow opening via keyboard (Enter and Space keys)
 			item.addEventListener('keydown', function(e) {
-				if (e.key === 'Enter') {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
 					openModal(e);
 				}
 			});
