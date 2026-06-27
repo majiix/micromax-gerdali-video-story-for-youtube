@@ -3,7 +3,7 @@
  * Plugin Name: Micromax Gerdali video story for youtube
  * Plugin URI: https://wordpress.org/plugins/micromax-gerdali-video-story-for-youtube
  * Description: Displays a YouTube channel's latest videos in an Instagram-style story circle layout with skeleton loading. Videos open in an overlay.
- * Version: 1.6.1
+ * Version: 1.7.0
  * Author: micromax
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,8 @@ $micromax_gerdali_load_modal = false;
  * Enqueues frontend scripts and styles.
  */
 function micromax_gerdali_enqueue_assets() {
-	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.6.1' );
-	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.6.1', true );
+	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.7.0' );
+	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.7.0', true );
 
 	wp_localize_script(
 		'micromax-gerdali-script',
@@ -307,14 +307,14 @@ function micromax_gerdali_admin_enqueue_assets( $hook_suffix ) {
 		'micromax-gerdali-admin-style',
 		plugin_dir_url( __FILE__ ) . 'assets/css/admin.css',
 		array(),
-		'1.6.1'
+		'1.7.0'
 	);
 
 	wp_enqueue_script(
 		'micromax-gerdali-admin-script',
 		plugin_dir_url( __FILE__ ) . 'assets/js/admin.js',
 		array( 'jquery' ),
-		'1.6.1',
+		'1.7.0',
 		true
 	);
 }
@@ -330,65 +330,160 @@ function micromax_gerdali_tools_page_callback() {
 	?>
 	<div class="wrap">
 		<div class="micromax-gerdali-admin-container">
-			<header class="micromax-gerdali-admin-header">
-				<h1><?php esc_html_e( 'YouTube Video Story Shortcode Generator', 'micromax-gerdali-video-story-for-youtube' ); ?></h1>
-				<p><?php esc_html_e( 'Generate customized shortcodes to display your YouTube channel feeds in a gorgeous Instagram-like story layout.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
-			</header>
-
-			<div class="micromax-gerdali-admin-grid">
-				<!-- Settings Card -->
-				<section class="micromax-gerdali-admin-card" aria-labelledby="generator-title">
-					<h2 id="generator-title"><?php esc_html_e( 'Generator Settings', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
-					
-					<div class="micromax-gerdali-form-group">
-						<label for="micromax-gerdali-channel-id"><?php esc_html_e( 'YouTube Channel ID', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
-						<input type="text" id="micromax-gerdali-channel-id" class="regular-text" placeholder="e.g., UCx7QlhVvF5h4Bq4p6Z38b1A" value="" />
-						<p class="description"><?php esc_html_e( 'Enter the unique ID of the YouTube channel you want to display.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+			<div class="micromax-gerdali-dashboard">
+				<!-- Header -->
+				<header class="micromax-gerdali-header">
+					<div class="micromax-gerdali-header-left">
+						<span class="micromax-gerdali-badge"><?php esc_html_e( 'Pro Dashboard', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+						<h1><?php esc_html_e( 'YouTube Video Story', 'micromax-gerdali-video-story-for-youtube' ); ?></h1>
+						<p><?php esc_html_e( 'Configure and generate dynamic YouTube video feeds in a modern Instagram-like layout.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
 					</div>
-
-					<div class="micromax-gerdali-form-group">
-						<label for="micromax-gerdali-video-count"><?php esc_html_e( 'Video Count', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
-						<input type="number" id="micromax-gerdali-video-count" min="1" max="50" value="5" />
-						<p class="description"><?php esc_html_e( 'Specify how many recent videos to load. Default is 5.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+					<div class="micromax-gerdali-header-right">
+						<span class="micromax-gerdali-version-tag">v1.7.0</span>
 					</div>
-				</section>
+				</header>
 
-				<!-- Shortcode Preview and Instructions Card -->
-				<div class="micromax-gerdali-admin-grid-col-right">
-					<section class="micromax-gerdali-admin-card" aria-labelledby="shortcode-title" style="margin-bottom: 24px;">
-						<h2 id="shortcode-title"><?php esc_html_e( 'Your Shortcode', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
-						
-						<div class="micromax-gerdali-generator-preview-wrapper">
-							<label><?php esc_html_e( 'Copy Code Below', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
-							<div class="micromax-gerdali-shortcode-code" id="micromax-gerdali-shortcode-display" role="textbox" aria-readonly="true"></div>
-						</div>
-
-						<button id="micromax-gerdali-copy-btn" class="micromax-gerdali-btn-copy" aria-label="<?php esc_attr_e( 'Copy shortcode to clipboard', 'micromax-gerdali-video-story-for-youtube' ); ?>">
-							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-								<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-							</svg>
-							<span><?php esc_html_e( 'Copy Shortcode', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
-							<span class="micromax-gerdali-copy-tooltip" aria-hidden="true"><?php esc_html_e( 'Copied!', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
-						</button>
-					</section>
-
-					<section class="micromax-gerdali-admin-card" aria-labelledby="instructions-title">
-						<h2 id="instructions-title"><?php esc_html_e( 'How to Find YouTube Channel ID', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
-						<ul class="micromax-gerdali-instructions">
+				<div class="micromax-gerdali-main-grid">
+					<!-- Sidebar Navigation -->
+					<nav class="micromax-gerdali-sidebar">
+						<ul>
 							<li>
-								<span class="micromax-gerdali-instructions-step">1</span>
-								<?php esc_html_e( 'Navigate to the YouTube Channel in your web browser.', 'micromax-gerdali-video-story-for-youtube' ); ?>
+								<button class="micromax-gerdali-nav-item active" data-tab="generator">
+									<span class="nav-icon">⚡</span>
+									<span class="nav-text"><?php esc_html_e( 'Shortcode Generator', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+								</button>
 							</li>
 							<li>
-								<span class="micromax-gerdali-instructions-step">2</span>
-								<?php esc_html_e( 'Look at the address bar. The channel ID is the string starting with "UC" in the URL (e.g., youtube.com/channel/UCx7QlhVvF5...).', 'micromax-gerdali-video-story-for-youtube' ); ?>
+								<button class="micromax-gerdali-nav-item" data-tab="documentation">
+									<span class="nav-icon">📖</span>
+									<span class="nav-text"><?php esc_html_e( 'Guide & FAQs', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+								</button>
 							</li>
 							<li>
-								<span class="micromax-gerdali-instructions-step">3</span>
-								<?php esc_html_e( 'Alternatively, go to Advanced Settings in your YouTube Studio account settings to find it under account details.', 'micromax-gerdali-video-story-for-youtube' ); ?>
+								<button class="micromax-gerdali-nav-item" data-tab="system">
+									<span class="nav-icon">⚙️</span>
+									<span class="nav-text"><?php esc_html_e( 'System Status', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+								</button>
 							</li>
 						</ul>
-					</section>
+					</nav>
+
+					<!-- Content Panels -->
+					<div class="micromax-gerdali-content">
+						<!-- PANEL 1: Generator -->
+						<div id="tab-generator" class="micromax-gerdali-tab-panel active">
+							<div class="micromax-gerdali-panel-grid">
+								<!-- Settings Input -->
+								<section class="micromax-gerdali-card">
+									<h2><?php esc_html_e( 'Generator Settings', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
+									
+									<div class="micromax-gerdali-form-group">
+										<label for="micromax-gerdali-channel-id"><?php esc_html_e( 'YouTube Channel ID', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
+										<input type="text" id="micromax-gerdali-channel-id" placeholder="e.g., UCx7QlhVvF5h4Bq4p6Z38b1A" value="" />
+										<p class="description"><?php esc_html_e( 'Enter the unique ID of the YouTube channel you want to display.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+									</div>
+
+									<div class="micromax-gerdali-form-group">
+										<label for="micromax-gerdali-video-count"><?php esc_html_e( 'Video Count', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
+										<div class="range-input-wrapper">
+											<input type="range" id="micromax-gerdali-video-count-range" min="1" max="50" value="5" />
+											<input type="number" id="micromax-gerdali-video-count" min="1" max="50" value="5" />
+										</div>
+										<p class="description"><?php esc_html_e( 'Specify how many recent videos to load. Default is 5. Max is 50.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+									</div>
+								</section>
+
+								<!-- Shortcode Preview and Live Design Mockup -->
+								<div class="micromax-gerdali-panel-right">
+									<section class="micromax-gerdali-card shortcode-output-card">
+										<h2><?php esc_html_e( 'Your Shortcode', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
+										
+										<div class="micromax-gerdali-generator-preview-wrapper">
+											<label><?php esc_html_e( 'Copy Code Below', 'micromax-gerdali-video-story-for-youtube' ); ?></label>
+											<div class="micromax-gerdali-shortcode-code" id="micromax-gerdali-shortcode-display" role="textbox" aria-readonly="true"></div>
+										</div>
+
+										<button id="micromax-gerdali-copy-btn" class="micromax-gerdali-btn-copy" aria-label="<?php esc_attr_e( 'Copy shortcode to clipboard', 'micromax-gerdali-video-story-for-youtube' ); ?>">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+											</svg>
+											<span><?php esc_html_e( 'Copy Shortcode', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+											<span class="micromax-gerdali-copy-tooltip" aria-hidden="true"><?php esc_html_e( 'Copied!', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+										</button>
+									</section>
+
+									<section class="micromax-gerdali-card live-preview-card">
+										<h2><?php esc_html_e( 'Live Layout Preview', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
+										<p class="description"><?php esc_html_e( 'Here is a simulation of how the story circles look on the frontend widget.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+										<div class="micromax-gerdali-live-preview-container" id="micromax-gerdali-live-preview">
+											<!-- Dynamic preview items inserted via JS -->
+										</div>
+									</section>
+								</div>
+							</div>
+						</div>
+
+						<!-- PANEL 2: Guide & FAQs -->
+						<div id="tab-documentation" class="micromax-gerdali-tab-panel">
+							<section class="micromax-gerdali-card">
+								<h2><?php esc_html_e( 'How to Find YouTube Channel ID', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
+								<div class="faq-list">
+									<div class="faq-item active">
+										<button class="faq-trigger">
+											<span><?php esc_html_e( '1. Locate the channel ID in the browser URL', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+											<span class="faq-icon">▼</span>
+										</button>
+										<div class="faq-content">
+											<p><?php esc_html_e( 'Navigate to the YouTube Channel in your web browser. Look at the address bar. The channel ID is the string starting with "UC" in the URL (e.g., youtube.com/channel/UCx7QlhVvF5h4Bq4p6Z38b1A).', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+										</div>
+									</div>
+									<div class="faq-item">
+										<button class="faq-trigger">
+											<span><?php esc_html_e( '2. Find it in YouTube Advanced Settings', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+											<span class="faq-icon">▼</span>
+										</button>
+										<div class="faq-content">
+											<p><?php esc_html_e( 'Alternatively, go to Advanced Settings in your YouTube Studio account settings to find it listed under account details.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+										</div>
+									</div>
+									<div class="faq-item">
+										<button class="faq-trigger">
+											<span><?php esc_html_e( '3. How to use the shortcode?', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+											<span class="faq-icon">▼</span>
+										</button>
+										<div class="faq-content">
+											<p><?php esc_html_e( 'Copy the generated shortcode and paste it into any WordPress post, page, widget, or template file. In the Block Editor, you can use the Shortcode Block.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<!-- PANEL 3: System Status -->
+						<div id="tab-system" class="micromax-gerdali-tab-panel">
+							<section class="micromax-gerdali-card">
+								<h2><?php esc_html_e( 'System Information', 'micromax-gerdali-video-story-for-youtube' ); ?></h2>
+								<div class="status-grid">
+									<div class="status-row">
+										<span class="status-label"><?php esc_html_e( 'Plugin Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+										<span class="status-value highlight">1.7.0</span>
+									</div>
+									<div class="status-row">
+										<span class="status-label"><?php esc_html_e( 'PHP Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+										<span class="status-value"><?php echo esc_html( phpversion() ); ?></span>
+									</div>
+									<div class="status-row">
+										<span class="status-label"><?php esc_html_e( 'WordPress Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+										<span class="status-value"><?php echo esc_html( get_bloginfo( 'version' ) ); ?></span>
+									</div>
+									<div class="status-row">
+										<span class="status-label"><?php esc_html_e( 'Shortcode Status', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+										<span class="status-value success"><?php esc_html_e( 'Registered & Active', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

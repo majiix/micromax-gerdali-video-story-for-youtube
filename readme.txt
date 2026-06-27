@@ -4,7 +4,7 @@ Tags: youtube, story, video, widget, instagram style
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.6.1
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,12 @@ You can find your Channel ID by going to your YouTube account's advanced setting
 Simply use different shortcodes with their respective channel IDs wherever you want them to display. Example: [micromax_gerdali_story_videos id="UC123456789"] and [micromax_gerdali_story_videos id="UC987654321"].
 
 == Changelog ==
+
+= 1.7.0 =
+
+* Refactored the tools generator settings page into a modern, pro-dashboard style layout.
+* Added a live visual layout preview showing simulated stories that update dynamically.
+* Added support for accordion-style FAQ lists and a system status information panel.
 
 = 1.6.1 =
 
