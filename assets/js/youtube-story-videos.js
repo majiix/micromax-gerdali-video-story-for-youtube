@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	 * @param {string} videoId The YouTube video ID.
 	 */
 	function loadVideo(videoId) {
+		// Only load if the modal is currently open to prevent background playback if closed early.
+		if (!modal.classList.contains('is-open')) {
+			return;
+		}
 		if (player && typeof player.loadVideoById === 'function') {
 			player.loadVideoById(videoId);
 		} else {

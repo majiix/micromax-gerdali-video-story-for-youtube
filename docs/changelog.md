@@ -15,3 +15,12 @@ step 3:
 step 4:
 1- Incremented plugin version tags to `1.7.0` across main PHP headers, enqueues, and layout displays.
 2- Documented all changes under a new release block in `readme.txt`.
+
+step 5:
+1- Added strict type and format checks on input parameters to avoid TypeError and Error 500 on PHP 8.x.
+2- Removed nonce validation from frontend AJAX fetch call to ensure caching plugin compatibility.
+3- Added HTTP response validation and SimpleXML instanceof assertions for safe feed parsing.
+4- Added a JS modal is-open guard to prevent background audio playback when the lightbox modal is closed during player loading.
+5- Incremented plugin version to 1.7.1 across files.
+Commit message: refactor(core): improve input validation, caching compatibility, and player robustness
+

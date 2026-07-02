@@ -4,7 +4,7 @@ Tags: youtube, story, video, widget, instagram style
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,13 @@ You can find your Channel ID by going to your YouTube account's advanced setting
 Simply use different shortcodes with their respective channel IDs wherever you want them to display. Example: [micromax_gerdali_story_videos id="UC123456789"] and [micromax_gerdali_story_videos id="UC987654321"].
 
 == Changelog ==
+
+= 1.7.1 =
+
+* Added strict input type and pattern checks for Channel ID variables to prevent TypeErrors in PHP 8.x.
+* Bypassed public AJAX nonce verification on frontend loads to prevent 403 Forbidden errors when page caching is active.
+* Added safe instanceof checks for SimpleXML nodes and response validation to ensure HTTP failures do not cause warnings.
+* Implemented JS modal guards to prevent background audio playback if lightbox overlay is closed prematurely.
 
 = 1.7.0 =
 

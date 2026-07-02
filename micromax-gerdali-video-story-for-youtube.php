@@ -3,7 +3,7 @@
  * Plugin Name: Micromax Gerdali video story for youtube
  * Plugin URI: https://wordpress.org/plugins/micromax-gerdali-video-story-for-youtube
  * Description: Displays a YouTube channel's latest videos in an Instagram-style story circle layout with skeleton loading. Videos open in an overlay.
- * Version: 1.7.0
+ * Version: 1.7.1
  * Author: micromax
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,8 @@ $micromax_gerdali_load_modal = false;
  * Enqueues frontend scripts and styles.
  */
 function micromax_gerdali_enqueue_assets() {
-	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.7.0' );
-	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.7.0', true );
+	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.7.1' );
+	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.7.1', true );
 
 	wp_localize_script(
 		'micromax-gerdali-script',
@@ -49,7 +49,7 @@ add_action( 'wp_enqueue_scripts', 'micromax_gerdali_enqueue_assets' );
  * @return array|false Array of video items or false on failure.
  */
 function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
-	if ( empty( $channel_id ) ) {
+	if ( empty( $channel_id ) || ! is_string( $channel_id ) || ! preg_match( '/^UC[a-zA-Z0-9_-]{22}$/', $channel_id ) ) {
 		return false;
 	}
 
@@ -71,6 +71,12 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
 		return false;
 	}
 
+	$response_code = wp_remote_retrieve_response_code( $response );
+	if ( 200 !== $response_code ) {
+		set_transient( $transient_key, 'error', 10 * MINUTE_IN_SECONDS );
+		return false;
+	}
+
 	$body = wp_remote_retrieve_body( $response );
 
 	// Suppress XML parsing warnings if feed is temporarily malformed.
@@ -85,7 +91,7 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
 	}
 	libxml_clear_errors();
 
-	if ( ! $xml || empty( $xml->entry ) ) {
+	if ( ! $xml instanceof SimpleXMLElement || empty( $xml->entry ) ) {
 		set_transient( $transient_key, 'error', 10 * MINUTE_IN_SECONDS );
 		return false;
 	}
@@ -98,10 +104,17 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
 			break;
 		}
 
+		if ( ! $entry instanceof SimpleXMLElement ) {
+			continue;
+		}
+
 		// YouTube specific namespace for extracting the yt:videoId.
 		$yt       = $entry->children( 'http://www.youtube.com/xml/schemas/2015' );
-		$video_id = (string) $yt->videoId;
-		$title    = (string) $entry->title;
+		$video_id = '';
+		if ( $yt instanceof SimpleXMLElement ) {
+			$video_id = (string) $yt->videoId;
+		}
+		$title = (string) $entry->title;
 
 		if ( empty( $video_id ) ) {
 			continue;
@@ -129,15 +142,15 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
  * Handles the AJAX request to fetch video HTML, replacing skeletons.
  */
 function micromax_gerdali_ajax_fetch_videos() {
-	check_ajax_referer( 'micromax_gerdali_fetch_nonce', '_ajax_nonce' );
+	// Nonce verification bypassed for frontend AJAX requests to ensure compatibility with page caching plugins.
 
 	$count      = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
 	$count      = min( 50, max( 1, $count ) );
-	$channel_id = isset( $_POST['channel_id'] ) ? sanitize_text_field( wp_unslash( $_POST['channel_id'] ) ) : '';
+	$channel_id = isset( $_POST['channel_id'] ) && is_string( $_POST['channel_id'] ) ? sanitize_text_field( wp_unslash( $_POST['channel_id'] ) ) : '';
 	$channel_id = trim( $channel_id );
 
-	if ( empty( $channel_id ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'Channel ID is missing.', 'micromax-gerdali-video-story-for-youtube' ) ) );
+	if ( empty( $channel_id ) || ! preg_match( '/^UC[a-zA-Z0-9_-]{22}$/', $channel_id ) ) {
+		wp_send_json_error( array( 'message' => esc_html__( 'Invalid or missing YouTube Channel ID.', 'micromax-gerdali-video-story-for-youtube' ) ) );
 	}
 
 	$videos = micromax_gerdali_get_youtube_videos( $count, $channel_id );
@@ -197,11 +210,11 @@ function micromax_gerdali_render_shortcode( $atts ) {
 
 	$atts['count'] = min( 50, max( 1, absint( $atts['count'] ) ) );
 
-	if ( ! empty( $atts['id'] ) ) {
+	if ( ! empty( $atts['id'] ) && is_string( $atts['id'] ) ) {
 		$atts['id'] = trim( $atts['id'] );
 	}
 
-	if ( empty( $atts['id'] ) ) {
+	if ( empty( $atts['id'] ) || ! is_string( $atts['id'] ) || ! preg_match( '/^UC[a-zA-Z0-9_-]{22}$/', $atts['id'] ) ) {
 		return '<p>' . esc_html__( 'Please provide a valid YouTube Channel ID in the shortcode attributes.', 'micromax-gerdali-video-story-for-youtube' ) . '</p>';
 	}
 
@@ -307,14 +320,14 @@ function micromax_gerdali_admin_enqueue_assets( $hook_suffix ) {
 		'micromax-gerdali-admin-style',
 		plugin_dir_url( __FILE__ ) . 'assets/css/admin.css',
 		array(),
-		'1.7.0'
+		'1.7.1'
 	);
 
 	wp_enqueue_script(
 		'micromax-gerdali-admin-script',
 		plugin_dir_url( __FILE__ ) . 'assets/js/admin.js',
 		array( 'jquery' ),
-		'1.7.0',
+		'1.7.1',
 		true
 	);
 }
@@ -339,7 +352,7 @@ function micromax_gerdali_tools_page_callback() {
 						<p><?php esc_html_e( 'Configure and generate dynamic YouTube video feeds in a modern Instagram-like layout.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
 					</div>
 					<div class="micromax-gerdali-header-right">
-						<span class="micromax-gerdali-version-tag">v1.7.0</span>
+						<span class="micromax-gerdali-version-tag">v1.7.1</span>
 					</div>
 				</header>
 
@@ -466,7 +479,7 @@ function micromax_gerdali_tools_page_callback() {
 								<div class="status-grid">
 									<div class="status-row">
 										<span class="status-label"><?php esc_html_e( 'Plugin Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
-										<span class="status-value highlight">1.7.0</span>
+										<span class="status-value highlight">1.7.1</span>
 									</div>
 									<div class="status-row">
 										<span class="status-label"><?php esc_html_e( 'PHP Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
