@@ -3,7 +3,7 @@
  * Plugin Name: Micromax Gerdali video story for youtube
  * Plugin URI: https://wordpress.org/plugins/micromax-gerdali-video-story-for-youtube
  * Description: Displays a YouTube channel's latest videos in an Instagram-style story circle layout with skeleton loading. Videos open in an overlay.
- * Version: 1.7.1
+ * Version: 1.7.2
  * Author: micromax
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,8 @@ $micromax_gerdali_load_modal = false;
  * Enqueues frontend scripts and styles.
  */
 function micromax_gerdali_enqueue_assets() {
-	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.7.1' );
-	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.7.1', true );
+	wp_register_style( 'micromax-gerdali-style', plugin_dir_url( __FILE__ ) . 'assets/css/youtube-story-videos.css', array(), '1.7.2' );
+	wp_register_script( 'micromax-gerdali-script', plugin_dir_url( __FILE__ ) . 'assets/js/youtube-story-videos.js', array(), '1.7.2', true );
 
 	wp_localize_script(
 		'micromax-gerdali-script',
@@ -144,8 +144,10 @@ function micromax_gerdali_get_youtube_videos( $count, $channel_id ) {
 function micromax_gerdali_ajax_fetch_videos() {
 	// Nonce verification bypassed for frontend AJAX requests to ensure compatibility with page caching plugins.
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing
 	$count      = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
 	$count      = min( 50, max( 1, $count ) );
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing
 	$channel_id = isset( $_POST['channel_id'] ) && is_string( $_POST['channel_id'] ) ? sanitize_text_field( wp_unslash( $_POST['channel_id'] ) ) : '';
 	$channel_id = trim( $channel_id );
 
@@ -320,14 +322,14 @@ function micromax_gerdali_admin_enqueue_assets( $hook_suffix ) {
 		'micromax-gerdali-admin-style',
 		plugin_dir_url( __FILE__ ) . 'assets/css/admin.css',
 		array(),
-		'1.7.1'
+		'1.7.2'
 	);
 
 	wp_enqueue_script(
 		'micromax-gerdali-admin-script',
 		plugin_dir_url( __FILE__ ) . 'assets/js/admin.js',
 		array( 'jquery' ),
-		'1.7.1',
+		'1.7.2',
 		true
 	);
 }
@@ -352,7 +354,7 @@ function micromax_gerdali_tools_page_callback() {
 						<p><?php esc_html_e( 'Configure and generate dynamic YouTube video feeds in a modern Instagram-like layout.', 'micromax-gerdali-video-story-for-youtube' ); ?></p>
 					</div>
 					<div class="micromax-gerdali-header-right">
-						<span class="micromax-gerdali-version-tag">v1.7.1</span>
+						<span class="micromax-gerdali-version-tag">v1.7.2</span>
 					</div>
 				</header>
 
@@ -479,7 +481,7 @@ function micromax_gerdali_tools_page_callback() {
 								<div class="status-grid">
 									<div class="status-row">
 										<span class="status-label"><?php esc_html_e( 'Plugin Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>
-										<span class="status-value highlight">1.7.1</span>
+										<span class="status-value highlight">1.7.2</span>
 									</div>
 									<div class="status-row">
 										<span class="status-label"><?php esc_html_e( 'PHP Version', 'micromax-gerdali-video-story-for-youtube' ); ?></span>

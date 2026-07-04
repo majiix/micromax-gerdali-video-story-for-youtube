@@ -1,6 +1,6 @@
 /**
  * Admin JavaScript for Micromax Gerdali Video Story Shortcode Generator
- * Version: 1.7.1 (Pro Dashboard Interactions)
+ * Version: 1.7.2 (Pro Dashboard Interactions)
  */
 
 jQuery(document).ready(function($) {

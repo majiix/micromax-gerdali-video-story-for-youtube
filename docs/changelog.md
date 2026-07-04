@@ -21,6 +21,7 @@ step 5:
 2- Removed nonce validation from frontend AJAX fetch call to ensure caching plugin compatibility.
 3- Added HTTP response validation and SimpleXML instanceof assertions for safe feed parsing.
 4- Added a JS modal is-open guard to prevent background audio playback when the lightbox modal is closed during player loading.
-5- Incremented plugin version to 1.7.1 across files.
+5- Incremented plugin version to 1.7.2 across files.
+6- Added PHPCS ignore annotations to clarify the intentional nonce check bypass for public caching compatibility.
 Commit message: refactor(core): improve input validation, caching compatibility, and player robustness
 
