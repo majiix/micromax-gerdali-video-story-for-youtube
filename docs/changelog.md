@@ -25,3 +25,9 @@ step 5:
 6- Added PHPCS ignore annotations to clarify the intentional nonce check bypass for public caching compatibility.
 Commit message: refactor(core): improve input validation, caching compatibility, and player robustness
 
+step 6:
+1- Verified full compatibility against WordPress 7.1.0 Field Guide.
+2- Updated `Tested up to: 7.1` compatibility tag in `readme.txt`.
+3- Incremented plugin version to 1.7.3 across all plugin files, asset enqueues, and admin dashboard views.
+
+
